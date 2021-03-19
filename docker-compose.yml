@@ -1,0 +1,29 @@
+version: "3.3"
+
+services:
+  mssql-db:
+    image: mcr.microsoft.com/mssql/server
+    ports:
+      - 21000:1433
+    environment: 
+      ACCEPT_EULA: Y
+      SA_PASSWORD: "HelloW0rld"
+     
+  
+  application:
+    image: lechampdk/todoimage
+    environment: 
+      ASPNETCORE_ENVIRONMENT: Development
+    depends_on: 
+      - mssql-db
+    ports: 
+      - 21001:80
+
+  flyway:
+    image: flyway/flyway
+    command: migrate
+    volumes:
+      - ./db:/flyway/sql
+      - ./db:/flyway/conf
+    depends_on: 
+      - mssql-db
