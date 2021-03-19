@@ -11,7 +11,7 @@ services:
      
   
   application:
-    image: lechampdk/todoimage
+    image: lechampdk/todoit
     environment: 
       ASPNETCORE_ENVIRONMENT: Development
     depends_on: 
