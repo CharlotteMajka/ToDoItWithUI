@@ -40,7 +40,7 @@ pipeline {
         stage("Release staging environment") {
             steps {
 				sh "docker-compose pull"
-				sh "docker-compose up -d application msssql-db"
+				sh "docker-compose up -d application mssql-db"
             }
         }
         stage("Automated acceptance test") {
