@@ -1,6 +1,6 @@
 
-FROM mcr.microsoft.com/dotnet/aspnet
-WORKDIR /app
-COPY ./src/API/bin/Debug/net5.0 .
-COPY ./src/API/wwwroot ./wwwroot
-ENTRYPOINT ["dotnet", "UI.dll"]
+FROM mcr.microsoft.com/dotnet/aspnet:5.0 
+WORKDIR /src
+COPY ["src/API/API.csproj", "src/API/"]
+COPY . .
+ENTRYPOINT ["dotnet", "API.dll"]
