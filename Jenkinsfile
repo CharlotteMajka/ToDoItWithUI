@@ -41,7 +41,6 @@ pipeline {
             steps {
 				sh "docker-compose pull"
 				sh "docker-compose up -d application msssql-db"
-                sh "sqlpackage /Action:Publish /TargetPassword:HelloW0rld /TargetUser:sa /TargetServerName:devops.setgo.dk,23000"
             }
         }
         stage("Automated acceptance test") {
