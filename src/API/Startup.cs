@@ -31,7 +31,7 @@ namespace API
             services.AddControllers();
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "API", Version = "v1"}); });
             services.AddDbContext<TodoContext>(b => b
-                .UseSqlServer(Environment.GetEnvironmentVariable("DatabaseConnectionString"))
+                .UseSqlServer(Environment.GetEnvironmentVariable("Server=mssql-db;Database=TodoDb;User Id=sa;Password=HelloW0rld;"))
                 .LogTo(Console.WriteLine)
             );
         }
