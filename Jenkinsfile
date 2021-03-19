@@ -10,7 +10,7 @@ pipeline {
             steps {
                 sh "dotnet build src/Todoit.sln"
                 sh "docker build . -t lechampdk/todoit"
-                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'DockerHub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']])
+                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: '69e5c2f8-8f3b-4461-b829-e3532bc4b156', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']])
                 {
                     sh 'docker login -u ${USERNAME} -p ${PASSWORD}'
                 }
