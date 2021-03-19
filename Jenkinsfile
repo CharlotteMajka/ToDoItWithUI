@@ -19,7 +19,8 @@ pipeline {
         }
         stage("Build database") {
             steps {
-                echo "===== OPTIONAL: Will build the database (if using a state-based approach) ====="
+				sh  "dotnet build db/ToDoIt-DB/ToDoIt-DB.sqlproj /p:NetCoreBuild=true /p:NETCoreTargetsPath=/opt/ssdt/"
+				
             }
         }
         stage("Test API") {
@@ -41,6 +42,7 @@ pipeline {
             steps {
 				sh "docker-compose pull"
 				sh "docker-compose up -d application mssql-db"
+				sh "sqlpackage /Action:Publish /TargetDatabaseName:Workouter /SourceFile:db/ToDoIt-DB/bin/Debug/ToDoIt-DB.dacpac /TargetPassword:HelloW0rld /TargetUser:sa /TargetServerName:devops.setgo.dk,23000"
             }
         }
         stage("Automated acceptance test") {
