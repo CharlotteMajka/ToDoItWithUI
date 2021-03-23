@@ -42,7 +42,7 @@ pipeline {
             steps {
 				sh "docker-compose pull"
 				sh "docker-compose up -d application mssql-db"
-				sh "sqlpackage /Action:Publish /TargetDatabaseName:Workouter /SourceFile:db/ToDoIt-DB/bin/Debug/ToDoIt-DB.dacpac /TargetPassword:HelloW0rld /TargetUser:sa /TargetServerName:devops.setgo.dk,23000"
+				sh "sqlpackage /Action:Publish /TargetDatabaseName:TodoDb /SourceFile:db/ToDoIt-DB/bin/Debug/ToDoIt-DB.dacpac /TargetPassword:HelloW0rld /TargetUser:sa /TargetServerName:devops.setgo.dk,23000"
             }
         }
         stage("Automated acceptance test") {
