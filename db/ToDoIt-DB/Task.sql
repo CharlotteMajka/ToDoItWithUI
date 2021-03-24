@@ -1,6 +1,6 @@
 CREATE TABLE [dbo].[Task]
 (
-  [TaskId] INT NOT NULL,
+  [TaskId] INT NOT NULL IDENTITY(1,1),
   [Description] NVARCHAR(255) NOT NULL,
   [IsCompleted] BIT NOT NULL,
   [DueDate] DATETIME2, 
