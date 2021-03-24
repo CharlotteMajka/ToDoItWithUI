@@ -1,0 +1,7 @@
+ CREATE TABLE [dbo].[Assignee]
+(
+  [Id] INT NOT NULL PRIMARY KEY,
+  [Name] NVARCHAR(75) NOT NULL
+
+)
+

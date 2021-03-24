@@ -64,4 +64,8 @@
   <Target Name="BeforeBuild">
     <Delete Files="$(BaseIntermediateOutputPath)\project.assets.json" />
   </Target>
+  <ItemGroup>
+    <Build Include="Task.sql" />
+    <Build Include="Assignee.sql" />
+  </ItemGroup>
 </Project>
