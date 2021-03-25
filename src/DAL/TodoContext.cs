@@ -14,6 +14,11 @@ namespace DAL
         public TodoContext(DbContextOptions<TodoContext> config) : base(config)
         { }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            //todo
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer();
