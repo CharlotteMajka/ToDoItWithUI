@@ -12,9 +12,8 @@
   </div>
   <!-- Create todo section -->
   <div class="card">
-
     <div class="card-header text-center">
-      <a class="btn btn-primary" data-toggle="collapse" href="#Createtodo" role="button" aria-expanded="false" aria-controls="collapseExample">
+      <a class="btn btn-primary" data-toggle="collapse" href="#Createtodo" role="button" aria-expanded="false" aria-controls="collapseExample1">
         Create new Todo - Click here
       </a></div>
         <div class="card-body bg-light border rounded shadow-sm collapse" id="Createtodo">
@@ -29,9 +28,7 @@
             <label for="responsible" class="col-sm-3 col-form-label">Ansvarlig</label>
             <div class="col-sm-9 form-inline">
               <select [formControl]="responsible" id="responsible" class="form-control">
-                <option value="Hanne">Hanne</option>
-                <option value="Gurli">Gurli</option>
-                <option value="Bo">Bo</option>
+                <option *ngFor="let assignee of assigneeList" [value]="assignee.id">{{assignee.name}}</option>
               </select>
             </div>
           </div>
@@ -47,6 +44,27 @@
           <button type="button" class="btn btn-primary" (click)="save()">Add</button>
         </div>
         </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header text-center">
+      <a class="btn btn-primary" data-toggle="collapse" href="#Createassignee" role="button" aria-expanded="false" aria-controls="collapseExample2">
+        Create new Assignee - Click here
+      </a></div>
+    <div class="card-body bg-light border rounded shadow-sm collapse" id="Createassignee">
+      <div class="form-group row">
+        <label for="newAsignee" class="col-sm-3 col-form-label">Name</label>
+        <div class="col-sm-9 form-inline">
+          <input [formControl]="newAsignee" type="text" class="form-control" id="newAsignee">
+          <span class="validity"></span>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label"></label>
+        <div class="col-sm-9 ">
+          <button type="button" class="btn btn-primary" (click)="saveNewAssignee()">Add</button>
+        </div>
+      </div>
     </div>
   </div>
   <div class="p-2 mx-4 border-black-25 border-bottom"></div>
@@ -78,13 +96,13 @@
           <input  type="checkbox" class="btn-check" id="btn-check-2-outlined" [checked]="task.IsComplete === true" autocomplete="off">
         </div>
         <div class="col px-1 m-1 d-flex align-items-center">
-         <h5 class="">{{task.Description}} <span class="badge rounded-pill bg-primary text-white">{{task.Assignee}}</span>
+         <h5 class="">{{task.Description}} <span class="badge rounded-pill bg-primary text-white">{{task.Assignee?.name}}</span>
          </h5>
         </div>
         <div class="col-auto m-1 p-0 ">
           <div class=" d-flex justify-content-end">
             <h5 class="m-0 p-0 px-2 todo-actions">
-               <span class="badge rounded-pill bg-primary text-white">{{task.DueDate}}
+               <span class="badge rounded-pill bg-primary text-white">{{task.DueDate | date: 'dd-MM-yyyy'}}
                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-calendar-event" viewBox="0 0 16 16">
               <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
             <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
@@ -92,7 +110,7 @@
            </span>
             </h5>
             <h5 class="m-0 p-0 px-2 todo-actions">
-              <button class="btn btn-outline-primary">
+              <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal" (click)="getUpdateReady(task)">
               <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16"  data-placement="bottom" title="Edit todo">
                 <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
               </svg>
@@ -108,7 +126,47 @@
             </h5>
           </div>
         </div>
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update Task</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form [formGroup]="formGroupUpdate">
+                <div class="form-group row">
+                  <label for="updateDescription" class="col-sm-3 col-form-label">Description</label>
+                  <div class="col-sm-9 form-inline">
+                    <input type="text" class="form-control" formControlName="Description" id="updateDescription">
+                  </div>
+                </div>
+                <div class="form-group row ">
+                  <label class="col-sm-3 col-form-label" for="updateDate">Set Due date</label>
+                  <div class="col-sm-9 form-inline">
+                    <input formControlName="DueDate" class="datetimeinput form-control" type="date" id="updateDate">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="Assignee" class="col-sm-3 col-form-label">Asignee</label>
+                  <div class="col-sm-9 form-inline" id="Assignee">
+                    <select formControlName="Assignee" class="form-control">
+                      <option *ngFor="let assignee of assigneeList" [value]="assignee.id">{{assignee.name}}</option>
+                    </select>
+                  </div>
+                </div>
+                </form>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)="saveUpdate(task)" data-dismiss="modal">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
