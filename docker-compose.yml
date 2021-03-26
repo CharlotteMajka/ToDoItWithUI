@@ -18,3 +18,10 @@ services:
       - mssql-db
     ports: 
       - 23001:80
+
+  webstrom:
+    image: lechampdk/todoitwebstrom
+    depends_on: 
+      - application
+    ports: 
+      - 23002:80
