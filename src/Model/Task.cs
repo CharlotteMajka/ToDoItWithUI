@@ -5,7 +5,7 @@ namespace Model
 {
     public class Task
     {
-        public int Id { get; set; }
+        public int TaskId { get; set; }
         
         [MaxLength(255), Required]
         public string Description { get; set; }

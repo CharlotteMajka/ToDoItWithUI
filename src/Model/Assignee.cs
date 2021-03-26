@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Model
@@ -8,5 +9,7 @@ namespace Model
         
         [MaxLength(75), Required]
         public string Name { get; set; }
+
+        public List<Task> tasks { get; set; }
     }
 }

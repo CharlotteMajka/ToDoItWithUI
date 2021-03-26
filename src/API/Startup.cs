@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
 
 namespace API
 {
@@ -37,6 +38,12 @@ namespace API
                 .UseSqlServer(Configuration.GetConnectionString("TodoDBConnectionString"))
                 .LogTo(Console.WriteLine)
             );
+
+            services.AddTransient<ITaskManagerRepository, TaskManagerRepository>();
+            services.AddScoped<ITaskManager, TaskManager>();
+
+            services.AddControllers()
+                .AddNewtonsoftJson(o => o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

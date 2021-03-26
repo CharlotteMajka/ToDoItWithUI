@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Model;
+using BLL;
 
 namespace API.Controllers
 {
@@ -9,29 +10,36 @@ namespace API.Controllers
     [Route("[controller]")]
     public class TaskController : Controller
     {
+        private ITaskManager _taskManager;
+
+        public TaskController(ITaskManager taskManager)
+        {
+            _taskManager = taskManager;
+        }
+
         [HttpGet]
         public IEnumerable<Task> Get(string searchTerm)
         {
-            throw new NotImplementedException();
+            return _taskManager.getAllTasks();
         }
         
         [HttpPost]
-        public int Post(Task task)
+        public Task Post(Task task)
         {
-            throw new NotImplementedException();
+            return _taskManager.createNewTask(task);
         }
         
         [HttpPut]
         public void Put(Task task)
         {
-            throw new NotImplementedException();
+            _taskManager.updateTask(task);
         }
         
         
         [HttpDelete]
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            _taskManager.deleteTask(id);
         }
     }
 }
