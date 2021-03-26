@@ -7,42 +7,43 @@ using System.Linq;
 
 namespace BLL
 {
-    public class TaskManagerRepository
+    public class TaskManagerRepository: ITaskManagerRepository
     {
-        readonly TodoContext _ctx = new TodoContext();
+        private readonly TodoContext _todoContext;
 
-        public TaskManagerRepository()
+        public TaskManagerRepository(TodoContext todoContext)
         {
+            _todoContext = todoContext;
         }
 
         public IEnumerable<Task> getAllTasks()
         {
-            return _ctx.Tasks;
+            return _todoContext.Tasks;
         }
 
         public Task createNewTask(Task task)
         {
-            var newTask = _ctx.Tasks.Add(task).Entity;
-            _ctx.SaveChanges();
+            var newTask = _todoContext.Tasks.Add(task).Entity;
+            _todoContext.SaveChanges();
             return newTask;
         }
 
         public void updateTask(Task task)
         {
-            var updatedTask = _ctx.Tasks.Update(task).Entity;
-            _ctx.SaveChanges();
+            var updatedTask = _todoContext.Tasks.Update(task).Entity;
+            _todoContext.SaveChanges();
         }
 
         public void deleteTask(int id)
         {
             var deletedTask = getTaskByID(id);
-            _ctx.Tasks.Remove(deletedTask);
-            _ctx.SaveChanges();
+            _todoContext.Tasks.Remove(deletedTask);
+            _todoContext.SaveChanges();
         }
 
-        private Task getTaskByID(int id)
+        public Task getTaskByID(int id)
         {
-            return _ctx.Tasks
+            return _todoContext.Tasks
                 .AsNoTracking()
                 .Include(t => t.Assignee)
                 .FirstOrDefault(t => t.Id == id);

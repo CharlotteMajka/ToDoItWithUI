@@ -7,27 +7,32 @@ using Model;
 
 namespace BLL
 {
-    public class TaskManager
+    public class TaskManager: ITaskManager
     {
-        private readonly TaskManagerRepository taskManagerRepository = new TaskManagerRepository();
+        private readonly ITaskManagerRepository _taskManagerRepository;
+
+        public TaskManager(ITaskManagerRepository taskManagerRepository)
+        {
+            _taskManagerRepository = taskManagerRepository;
+        }
         public IEnumerable<Task> getAllTasks()
         {
-            return taskManagerRepository.getAllTasks();
+            return _taskManagerRepository.getAllTasks();
         }
 
         public Task createNewTask(Task task)
         {
-            return taskManagerRepository.createNewTask(task);
+            return _taskManagerRepository.createNewTask(task);
         }
 
         public void updateTask(Task task)
         {
-            taskManagerRepository.updateTask(task);
+            _taskManagerRepository.updateTask(task);
         }
 
         public void deleteTask(int id)
         {
-            taskManagerRepository.deleteTask(id);
+            _taskManagerRepository.deleteTask(id);
         }
 
 

@@ -10,31 +10,36 @@ namespace API.Controllers
     [Route("[controller]")]
     public class TaskController : Controller
     {
-        private TaskManager taskManager = new TaskManager();
+        private ITaskManager _taskManager;
+
+        public TaskController(ITaskManager taskManager)
+        {
+            _taskManager = taskManager;
+        }
 
         [HttpGet]
         public IEnumerable<Task> Get(string searchTerm)
         {
-            return taskManager.getAllTasks();
+            return _taskManager.getAllTasks();
         }
         
         [HttpPost]
         public Task Post(Task task)
         {
-            return taskManager.createNewTask(task);
+            return _taskManager.createNewTask(task);
         }
         
         [HttpPut]
         public void Put(Task task)
         {
-            taskManager.updateTask(task);
+            _taskManager.updateTask(task);
         }
         
         
         [HttpDelete]
         public void Delete(int id)
         {
-            taskManager.deleteTask(id);
+            _taskManager.deleteTask(id);
         }
     }
 }

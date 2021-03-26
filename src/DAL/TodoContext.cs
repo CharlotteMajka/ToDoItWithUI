@@ -16,7 +16,8 @@ namespace DAL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //todo
+            modelBuilder.Entity<Task>().HasKey(e => e.Id);
+            modelBuilder.Entity<Task>().HasOne(t => t.Assignee);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

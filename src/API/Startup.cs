@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BLL;
 using DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,6 +35,9 @@ namespace API
                 .UseSqlServer(Environment.GetEnvironmentVariable("Server=mssql-db;Database=TodoDb;User Id=sa;Password=HelloW0rld;"))
                 .LogTo(Console.WriteLine)
             );
+
+            services.AddTransient<ITaskManagerRepository, TaskManagerRepository>();
+            services.AddScoped<ITaskManager, TaskManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
