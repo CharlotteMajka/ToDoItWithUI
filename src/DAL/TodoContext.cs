@@ -5,8 +5,8 @@ namespace DAL
 {
     public class TodoContext : DbContext
     {
-        public DbSet<Task> Tasks { get; set; }
-        public DbSet<Assignee> Assignees { get; set; }
+        public DbSet<Task> Task { get; set; }
+        public DbSet<Assignee> Assignee { get; set; }
 
         public TodoContext()
         { }

@@ -17,12 +17,12 @@ namespace DAL
 
         public IEnumerable<Assignee> GetAllAssignees()
         {
-            return _ctx.Assignees;
+            return _ctx.Assignee;
         }
 
         public Assignee CreateAssignee(Assignee assignee)
         {
-            var newAssignee = _ctx.Assignees.Add(assignee).Entity;
+            var newAssignee = _ctx.Assignee.Add(assignee).Entity;
             _ctx.SaveChanges();
             return newAssignee;
         }
@@ -36,7 +36,7 @@ namespace DAL
 
         private Assignee getAssigneeById(int id)
         {
-            return _ctx.Assignees.AsNoTracking().FirstOrDefault(a => a.Id == id);
+            return _ctx.Assignee.AsNoTracking().FirstOrDefault(a => a.Id == id);
         }
     }
 }
