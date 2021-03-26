@@ -18,35 +18,35 @@ namespace BLL
 
         public IEnumerable<Task> getAllTasks()
         {
-            return _todoContext.Tasks;
+            return _todoContext.Task.Include(t => t.Assignee);
         }
 
         public Task createNewTask(Task task)
         {
-            var newTask = _todoContext.Tasks.Add(task).Entity;
+            var newTask = _todoContext.Task.Add(task).Entity;
             _todoContext.SaveChanges();
             return newTask;
         }
 
         public void updateTask(Task task)
         {
-            var updatedTask = _todoContext.Tasks.Update(task).Entity;
+            var updatedTask = _todoContext.Task.Update(task).Entity;
             _todoContext.SaveChanges();
         }
 
         public void deleteTask(int id)
         {
             var deletedTask = getTaskByID(id);
-            _todoContext.Tasks.Remove(deletedTask);
+            _todoContext.Task.Remove(deletedTask);
             _todoContext.SaveChanges();
         }
 
         public Task getTaskByID(int id)
         {
-            return _todoContext.Tasks
+            return _todoContext.Task
                 .AsNoTracking()
                 .Include(t => t.Assignee)
-                .FirstOrDefault(t => t.Id == id);
+                .FirstOrDefault(t => t.TaskId == id);
         }
     }
 }

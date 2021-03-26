@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
 
 namespace API
 {
@@ -32,12 +33,15 @@ namespace API
             services.AddControllers();
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "API", Version = "v1"}); });
             services.AddDbContext<TodoContext>(b => b
-                .UseSqlServer(Environment.GetEnvironmentVariable("Server=mssql-db;Database=TodoDb;User Id=sa;Password=HelloW0rld;"))
+                .UseSqlServer(Configuration.GetConnectionString("BloggingDatabase"))
                 .LogTo(Console.WriteLine)
             );
 
             services.AddTransient<ITaskManagerRepository, TaskManagerRepository>();
             services.AddScoped<ITaskManager, TaskManager>();
+
+            services.AddControllers()
+                .AddNewtonsoftJson(o => o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -5,8 +5,8 @@ namespace DAL
 {
     public class TodoContext : DbContext
     {
-        public DbSet<Task> Tasks { get; set; }
-        public DbSet<Assignee> Assignees { get; set; }
+        public DbSet<Task> Task { get; set; }
+        public DbSet<Assignee> Assignee { get; set; }
 
         public TodoContext()
         { }
@@ -16,8 +16,12 @@ namespace DAL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Task>().HasKey(e => e.Id);
-            modelBuilder.Entity<Task>().HasOne(t => t.Assignee);
+            /*modelBuilder.Entity<Task>().HasKey(e => e.TaskId);
+            modelBuilder.Entity<Task>().HasOne(t => t.Assignee);*/
+
+            modelBuilder.Entity<Task>()
+                .HasOne(p => p.Assignee)
+                .WithMany(a => a.tasks);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
