@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using BLL;
+using DAL;
 using Microsoft.AspNetCore.Mvc;
 using Model;
 
@@ -9,22 +11,50 @@ namespace API.Controllers
     [Route("[controller]")]
     public class AssigneeController : Controller
     {
-        [HttpGet]
-        public IEnumerable<Assignee> Get()
+        private readonly IAssigneeManager _assigneeManager;
+
+        public AssigneeController(IAssigneeManager assigneeManager)
         {
-            throw new NotImplementedException();
+            _assigneeManager = assigneeManager;
+        }
+
+        [HttpGet]
+        public ActionResult<IEnumerable<Assignee>> Get()
+        {
+            try
+            {
+                return Ok(_assigneeManager.GetAllAssignees());
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
         }
         
         [HttpPost]
-        public int Post(Assignee task)
+        public ActionResult<Assignee> Post(Assignee assignee)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return Ok(_assigneeManager.createAssignee(assignee));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
         }
         
         [HttpDelete]
-        public void Delete(int id)
+        public ActionResult Delete(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return Ok(_assigneeManager.deleteAssignee(id));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
         }
     }
 }

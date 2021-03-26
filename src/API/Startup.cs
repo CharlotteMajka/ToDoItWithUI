@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BLL;
 using DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,10 +29,12 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IAssigneeRepository, AssigneeRepository>();
+            services.AddScoped<IAssigneeManager, AssigneeManager>();
             services.AddControllers();
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "API", Version = "v1"}); });
             services.AddDbContext<TodoContext>(b => b
-                .UseSqlServer(Environment.GetEnvironmentVariable("Server=mssql-db;Database=TodoDb;User Id=sa;Password=HelloW0rld;"))
+                .UseSqlServer(Configuration.GetConnectionString("TodoDBConnectionString"))
                 .LogTo(Console.WriteLine)
             );
         }
