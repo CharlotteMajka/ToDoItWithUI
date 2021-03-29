@@ -4,7 +4,7 @@ pipeline {
         stage("Build Web") {
             steps {
                 dir("src/UI-WebStorm/ToDoIt-Frontend") {
-                   
+                   sh "npm install"
 		    sh "ng build --prod"
                     sh "docker build . -t lechampdk/todoitwebstrom"
                     }
