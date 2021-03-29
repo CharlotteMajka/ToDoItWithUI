@@ -51,7 +51,7 @@ namespace API
                 options.AddPolicy("TodoItOptions",
                     builder =>
                     {
-                        builder.WithOrigins("http://localhost:4200", "https://localhost:4200")
+                        builder.WithOrigins("http://localhost:4200", "https://localhost:4200", "http://devops.setgo.dk:23002")
                             .AllowAnyHeader()
                             .AllowAnyMethod();
                     });
