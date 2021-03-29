@@ -88,6 +88,7 @@
     </div>
   </div>
   <!-- Todo list section -->
+  <div *ngIf="taskList$ | async">
   <div *ngIf="taskList && taskList.length > 0" class="row mx-1 px-5 pb-3 w-80">
     <div class="col mx-auto">
       <!-- Todo Item 1 -->
@@ -169,4 +170,5 @@
     </div>
   </div>
 </div>
-
+  </div>
+</div>

@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {TaskModel} from '../shared/task.model';
 import {AssigneeModel} from '../shared/assignee.model';
+import {Observable} from 'rxjs';
+import {TaskAssigneeService} from '../shared/taskAssignee.service';
+import {tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-assignee',
@@ -13,14 +16,16 @@ dueDate = new FormControl('');
 description = new FormControl('');
 responsible = new FormControl('');
 newAsignee = new FormControl('');
+
 taskList: TaskModel[] = [];
 assigneeList: AssigneeModel[] = [];
 // @ts-ignore
   formGroupUpdate: any;
   private errString: any;
+  // @ts-ignore
+  taskList$: Observable<TaskModel[]> = [];
 
-
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private service: TaskAssigneeService) { }
 
   ngOnInit(): void {
     this.formGroupUpdate = this.fb.group({
@@ -28,23 +33,9 @@ assigneeList: AssigneeModel[] = [];
       Assignee: [''],
       DueDate: [''],
     });
-    const newAssignee: AssigneeModel = {
-      id: 1,
-      name: 'Hanne'
-    };
-    this.assigneeList.push(newAssignee);
-
-    const newAssignee1: AssigneeModel = {
-      id: 2,
-      name: 'Gurli'
-    };
-    this.assigneeList.push(newAssignee1);
-    const newAssignee2: AssigneeModel = {
-      id: 3,
-      name: 'Hans'
-    };
-    this.assigneeList.push(newAssignee2);
-
+    this.taskList$ = this.service.readTask().pipe(
+     tap( list => {this.taskList = list; })
+   );
 
   }
 

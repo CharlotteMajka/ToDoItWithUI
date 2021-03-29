@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  webApiUrl: 'http://devops.setgo.dk:23001/'
 };
