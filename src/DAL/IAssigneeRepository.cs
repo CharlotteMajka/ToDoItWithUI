@@ -5,7 +5,7 @@ namespace DAL
 {
     public interface IAssigneeRepository
     {
-        IEnumerable<Assignee> GetAllAssignees();
+        List<Assignee> GetAllAssignees();
         Assignee CreateAssignee(Assignee assignee);
         Assignee deleteAssignee(int id);
     }

@@ -15,9 +15,9 @@ namespace DAL
             _ctx = ctx;
         }
 
-        public IEnumerable<Assignee> GetAllAssignees()
+        public List<Assignee> GetAllAssignees()
         {
-            return _ctx.Assignee;
+            return _ctx.Assignee.ToList();
         }
 
         public Assignee CreateAssignee(Assignee assignee)

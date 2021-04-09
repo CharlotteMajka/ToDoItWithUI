@@ -5,7 +5,7 @@ namespace BLL
 {
     public interface IAssigneeManager
     {
-        IEnumerable<Assignee> GetAllAssignees();
+        List<Assignee> GetAllAssignees();
         Assignee createAssignee(Assignee assignee);
         Assignee deleteAssignee(int id);
     }

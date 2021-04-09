@@ -19,7 +19,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Assignee>> Get()
+        public ActionResult<List<Assignee>> Get()
         {
             try
             {

@@ -24,7 +24,8 @@ assigneeList: Assignee[] = [];
   private errString: any;
   // @ts-ignore
   taskList$: Observable<Task[]> = [];
-
+  // @ts-ignore
+  assigneeList$: Observable<Assignee[]> = [];
 
   constructor(private fb: FormBuilder, private service: TaskAssigneeService) { }
 
@@ -38,10 +39,16 @@ assigneeList: Assignee[] = [];
      tap( list => {this.taskList = list;
      }),
       catchError(this.errString)
-   );
+    );
 
     this.taskList.forEach( (u) => console.log(JSON.stringify(u)) + 'hello');
     console.log( JSON.stringify(this.taskList.toString()));
+
+    this.responsible.patchValue(this.assigneeList$ = this.service.readAssignee().pipe(
+      tap( list => {this.assigneeList = list;
+      }),
+      catchError(this.errString)
+    ));
   }
 
   save(): void {

@@ -14,7 +14,7 @@ namespace BLL
             _assigneeRepository = assigneeManager;
         }
 
-        public IEnumerable<Assignee> GetAllAssignees()
+        public List<Assignee> GetAllAssignees()
         {
             return _assigneeRepository.GetAllAssignees();
         }

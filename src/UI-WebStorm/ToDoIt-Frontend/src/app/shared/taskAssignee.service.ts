@@ -3,6 +3,7 @@ import {Observable} from 'rxjs';
 import {Task} from './task.model';
 import {environment} from '../../environments/environment';
 import {Injectable} from '@angular/core';
+import {Assignee} from './assignee.model';
 
 
 const httpOptions = {
@@ -18,9 +19,11 @@ export class TaskAssigneeService {
   }
 
   readTask(): Observable<Task[]>{
-
     return this.http.get<Task[]>(environment.webApiUrl + 'Task', httpOptions);
+  }
 
+  readAssignee(): Observable<Assignee[]> {
+    return this.http.get<Assignee[]>(environment.webApiUrl + 'Assignee', httpOptions);
   }
 
 
