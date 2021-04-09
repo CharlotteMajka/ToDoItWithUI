@@ -5,7 +5,6 @@ pipeline {
             steps {
                 dir("src/UI-WebStorm/ToDoIt-Frontend") {
                     sh "npm install"
-		    sh "rm -r dist"
 		    sh "ng build --prod"
                     sh "docker build . -t lechampdk/todoitwebstrom"
                     }
