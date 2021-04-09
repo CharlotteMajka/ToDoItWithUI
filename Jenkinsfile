@@ -26,7 +26,7 @@ pipeline {
         }
         stage("Test API") {
             steps {
-                sh "dotnet test test\UnitTest\UnitTest.csproj"
+                sh "dotnet test test/UnitTest/UnitTest.csproj"
             }
         }
         stage("Deliver Web") {
