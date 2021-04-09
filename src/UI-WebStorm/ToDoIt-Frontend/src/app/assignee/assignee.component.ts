@@ -36,7 +36,6 @@ assigneeList: Assignee[] = [];
     });
     this.taskList$ = this.service.readTask().pipe(
      tap( list => {this.taskList = list;
-      this.taskList.forEach((u) => console.log(JSON.stringify(u)))
      }),
       catchError(this.errString)
    );
