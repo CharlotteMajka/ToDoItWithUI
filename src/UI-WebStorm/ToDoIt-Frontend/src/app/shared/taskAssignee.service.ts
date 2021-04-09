@@ -24,4 +24,7 @@ export class TaskAssigneeService {
   }
 
 
+  createTask(newTask: Task): Observable<Task> {
+    return this.http.post<Task>(environment.webApiUrl + 'Task', newTask, httpOptions);
+  }
 }

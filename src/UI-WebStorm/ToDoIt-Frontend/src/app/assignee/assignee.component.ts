@@ -36,7 +36,7 @@ assigneeList: Assignee[] = [];
     });
     this.taskList$ = this.service.readTask().pipe(
      tap( list => {this.taskList = list;
-      this.taskList.forEach((u) => console.log(JSON.stringify(u)))
+                   this.taskList.forEach((u) => console.log(JSON.stringify(u)))
      }),
       catchError(this.errString)
    );
@@ -51,13 +51,12 @@ assigneeList: Assignee[] = [];
     const assign = this.assigneeList.find((as) => as.id === parseInt(this.responsible.value));
     // @ts-ignore
     const newTask: TaskModel = {
-
       Assignee: assign,
       Description: this.description.value,
       DueDate: this.dueDate.value,
       IsComplete: false
     };
-    this.taskList.push(newTask);
+    this.service.createTask(newTask);
   }
 
   saveNewAssignee(): void {
