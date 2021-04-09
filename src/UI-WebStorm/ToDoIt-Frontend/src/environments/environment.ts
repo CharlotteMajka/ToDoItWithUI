@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  webApiUrl: 'http://devops.setgo.dk:23001/'
+  webApiUrl: 'https://localhost:44379/'
 };
 
 /*

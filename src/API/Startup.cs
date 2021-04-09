@@ -64,9 +64,17 @@ namespace API
         {
             if (env.IsDevelopment())
             {
+                app.UseCors("TodoItOptions");
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
+
+                using (var scope = app.ApplicationServices.CreateScope())
+                {
+                    var ctx = scope.ServiceProvider.GetService<TodoContext>();
+
+                    ctx.Database.CanConnect();
+                }
             }
             app.UseCors("TodoItOptions");
 

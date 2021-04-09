@@ -8,7 +8,7 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class TaskController : Controller
+    public class TaskController : ControllerBase
     {
         private ITaskManager _taskManager;
 
@@ -18,9 +18,10 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Task> Get(string searchTerm)
+        public ActionResult<List<Task>> Get()
         {
             return _taskManager.getAllTasks();
+         
         }
         
         [HttpPost]

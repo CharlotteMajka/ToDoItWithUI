@@ -1,4 +1,4 @@
-export interface AssigneeModel {
+export interface Assignee {
   id: number;
   name: string;
 }

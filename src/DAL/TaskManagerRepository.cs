@@ -16,9 +16,9 @@ namespace BLL
             _todoContext = todoContext;
         }
 
-        public IEnumerable<Task> getAllTasks()
+        public List<Task> getAllTasks()
         {
-            return _todoContext.Task.Include(t => t.Assignee);
+            return _todoContext.Task.Include(t => t.Assignee).ToList();
         }
 
         public Task createNewTask(Task task)

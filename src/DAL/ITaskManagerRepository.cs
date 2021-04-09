@@ -8,7 +8,7 @@ namespace DAL
 {
     public interface ITaskManagerRepository
     {
-        public IEnumerable<Task> getAllTasks();
+        public List<Task> getAllTasks();
         public Task createNewTask(Task task);
         public void updateTask(Task task);
         public void deleteTask(int id);

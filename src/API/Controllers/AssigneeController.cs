@@ -9,7 +9,7 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class AssigneeController : Controller
+    public class AssigneeController : ControllerBase
     {
         private readonly IAssigneeManager _assigneeManager;
 

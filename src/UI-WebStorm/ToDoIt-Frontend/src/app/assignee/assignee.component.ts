@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {TaskModel} from '../shared/task.model';
-import {AssigneeModel} from '../shared/assignee.model';
+import {Task} from '../shared/task.model';
+import {Assignee} from '../shared/assignee.model';
 import {Observable} from 'rxjs';
 import {TaskAssigneeService} from '../shared/taskAssignee.service';
-import {tap} from 'rxjs/operators';
+import {catchError, map, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-assignee',
@@ -17,13 +17,14 @@ description = new FormControl('');
 responsible = new FormControl('');
 newAsignee = new FormControl('');
 
-taskList: TaskModel[] = [];
-assigneeList: AssigneeModel[] = [];
+taskList: Task[] = [];
+assigneeList: Assignee[] = [];
 // @ts-ignore
   formGroupUpdate: any;
   private errString: any;
   // @ts-ignore
-  taskList$: Observable<TaskModel[]> = [];
+  taskList$: Observable<Task[]> = [];
+
 
   constructor(private fb: FormBuilder, private service: TaskAssigneeService) { }
 
@@ -34,9 +35,14 @@ assigneeList: AssigneeModel[] = [];
       DueDate: [''],
     });
     this.taskList$ = this.service.readTask().pipe(
-     tap( list => {this.taskList = list; })
+     tap( list => {this.taskList = list;
+      this.taskList.forEach((u) => console.log(JSON.stringify(u)))
+     }),
+      catchError(this.errString)
    );
 
+    this.taskList.forEach( (u) => console.log(JSON.stringify(u)) + 'hello');
+    console.log( JSON.stringify(this.taskList.toString()));
   }
 
   save(): void {
@@ -55,33 +61,33 @@ assigneeList: AssigneeModel[] = [];
   }
 
   saveNewAssignee(): void {
-    const newAssignee: AssigneeModel = {
+    const newAssignee: Assignee = {
       id: this.assigneeList.length + 2,
       name: this.newAsignee.value
     };
     this.assigneeList.push(newAssignee);
   }
-  Delete(task: TaskModel): void {
+  Delete(task: Task): void {
     this.taskList = this.taskList.filter(value => value !== task);
   }
 
-  getUpdateReady(task: TaskModel): void {
+  getUpdateReady(task: Task): void {
   this.formGroupUpdate.patchValue({
-    Description: [task.Description],
-    Assignee: [task.Assignee?.id],
-    DueDate: [task.DueDate],
+    Description: [task.description],
+    Assignee: [task.assignee?.id],
+    DueDate: [task.dueDate],
   });
 
   }
 
-  saveUpdate(taskId: TaskModel): void {
+  saveUpdate(taskId: Task): void {
     // tslint:disable-next-line:radix
     const assig = this.assigneeList.find((a) => a.id = parseInt(this.formGroupUpdate.Assignee.value.id));
 
-    const tasktoupdate: TaskModel = {
-        Description: this.formGroupUpdate.Description.value,
-        Assignee:  assig,
-        DueDate: this.formGroupUpdate.DueDate.value
+    const tasktoupdate: Task = {
+        description: this.formGroupUpdate.description.value,
+        assignee:  assig,
+        dueDate: this.formGroupUpdate.DueDate.value
     };
 
     this.taskList = this.taskList.filter( (t) => t !== taskId);

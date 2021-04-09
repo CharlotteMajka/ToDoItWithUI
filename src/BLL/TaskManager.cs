@@ -15,7 +15,7 @@ namespace BLL
         {
             _taskManagerRepository = taskManagerRepository;
         }
-        public IEnumerable<Task> getAllTasks()
+        public List<Task> getAllTasks()
         {
             return _taskManagerRepository.getAllTasks();
         }

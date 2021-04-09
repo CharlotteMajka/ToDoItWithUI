@@ -1,8 +1,10 @@
-import {AssigneeModel} from './assignee.model';
+import {Assignee} from './assignee.model';
 
-export interface TaskModel {
-  Description: string;
-  Assignee?: AssigneeModel;
-  DueDate: Date;
-  IsComplete?: boolean;
+export interface Task {
+  taskId?: number;
+  description: string;
+  assignee?: Assignee;
+  isComplete?: boolean;
+  dueDate: Date;
+
 }

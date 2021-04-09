@@ -94,16 +94,16 @@
       <!-- Todo Item 1 -->
       <div *ngFor="let task of taskList" class="row px-3 align-items-center todo-item rounded border" style="margin-bottom: 5px">
         <div class="col-auto m-1 p-0 d-flex align-items-center">
-          <input  type="checkbox" class="btn-check" id="btn-check-2-outlined" [checked]="task.IsComplete === true" autocomplete="off">
+          <input  type="checkbox" class="btn-check active" id="btn-check-2-outlined" [checked]="task.isComplete" autocomplete="off">
         </div>
         <div class="col px-1 m-1 d-flex align-items-center">
-         <h5 class="">{{task.Description}} <span class="badge rounded-pill bg-primary text-white">{{task.Assignee?.name}}</span>
+         <h5 class="">{{task.description}} <span class="badge rounded-pill bg-primary text-white">{{task.assignee?.name}}</span>
          </h5>
         </div>
         <div class="col-auto m-1 p-0 ">
           <div class=" d-flex justify-content-end">
             <h5 class="m-0 p-0 px-2 todo-actions">
-               <span class="badge rounded-pill bg-primary text-white">{{task.DueDate | date: 'dd-MM-yyyy'}}
+               <span class="badge rounded-pill bg-primary text-white">{{task.dueDate | date: 'dd-MM-yyyy'}}
                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-calendar-event" viewBox="0 0 16 16">
               <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
             <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
@@ -127,6 +127,8 @@
             </h5>
           </div>
         </div>
+
+        <!-- UPDATE MODAL -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -141,13 +143,13 @@
                 <div class="form-group row">
                   <label for="updateDescription" class="col-sm-3 col-form-label">Description</label>
                   <div class="col-sm-9 form-inline">
-                    <input type="text" class="form-control" formControlName="Description" id="updateDescription">
+                    <input type="text" class="form-control" formControlName="Description" id="updateDescription" name="updateDescription">
                   </div>
                 </div>
                 <div class="form-group row ">
                   <label class="col-sm-3 col-form-label" for="updateDate">Set Due date</label>
                   <div class="col-sm-9 form-inline">
-                    <input formControlName="DueDate" class="datetimeinput form-control" type="date" id="updateDate">
+                    <input formControlName="DueDate" class="datetimeinput form-control" type="date" id="updateDate" name="updateDate">
                   </div>
                 </div>
                 <div class="form-group row">

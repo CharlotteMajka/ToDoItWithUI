@@ -8,7 +8,7 @@ namespace BLL
 {
     public interface ITaskManager
     {
-        public IEnumerable<Task> getAllTasks();
+        public List<Task> getAllTasks();
         public Task createNewTask(Task task);
         public void updateTask(Task task);
         public void deleteTask(int id);
