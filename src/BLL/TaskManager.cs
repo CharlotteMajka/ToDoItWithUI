@@ -17,7 +17,13 @@ namespace BLL
         }
         public List<Task> getAllTasks()
         {
-            return _taskManagerRepository.getAllTasks();
+            var listOfTasks = _taskManagerRepository.getAllTasks();
+            if (!listOfTasks.Any())
+            {
+                throw new ArgumentException("No Tasks Found!");
+            }
+
+            return listOfTasks;
         }
 
         public Task createNewTask(Task task)
