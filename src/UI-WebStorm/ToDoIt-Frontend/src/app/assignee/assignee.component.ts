@@ -66,7 +66,15 @@ assigneeList: Assignee[] = [];
     };
     this.assigneeList.push(newAssignee);
   }
+
   Delete(task: Task): void {
+    const taskToDelete = this.taskList.find(value => value === task);
+
+    if (taskToDelete)
+    {
+      this.service.deleteTask(taskToDelete.taskId);
+    }
+
     this.taskList = this.taskList.filter(value => value !== task);
   }
 

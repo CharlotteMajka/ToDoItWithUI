@@ -23,5 +23,7 @@ export class TaskAssigneeService {
 
   }
 
-
+  deleteTask(taskId: number | undefined): Observable<Task> {
+    return this.http.delete<Task>(environment.webApiUrl + 'Task/' + taskId , httpOptions);
+  }
 }
