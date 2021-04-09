@@ -26,7 +26,7 @@ pipeline {
         }
         stage("Test API") {
             steps {
-                echo "===== REQUIRED: Will execute unit tests of the API project ====="
+                sh "dotnet test test\UnitTest\UnitTest.csproj"
             }
         }
         stage("Deliver Web") {
