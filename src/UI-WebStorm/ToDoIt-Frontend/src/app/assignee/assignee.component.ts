@@ -16,6 +16,7 @@ dueDate = new FormControl('');
 description = new FormControl('');
 responsible = new FormControl('');
 newAsignee = new FormControl('');
+  filterDescription = new FormControl('');
 
 taskList: Task[] = [];
 assigneeList: Assignee[] = [];
@@ -29,18 +30,23 @@ assigneeList: Assignee[] = [];
   constructor(private fb: FormBuilder, private service: TaskAssigneeService) { }
 
   ngOnInit(): void {
+    // makes formgrup for update modal
     this.formGroupUpdate = this.fb.group({
       Description: [''],
       Assignee: [''],
       DueDate: [''],
     });
+    // takes the tasklist$ and puts it in tasklist
     this.taskList$ = this.service.readTask().pipe(
      tap( list => {this.taskList = list;
      }),
       catchError(this.errString)
    );
-
-    this.taskList.forEach( (u) => console.log(JSON.stringify(u)) + 'hello');
+    // makes the filterform ready to filter on input
+    this.filterDescription.valueChanges.subscribe(value => {
+      this.taskList.filter(t => t.description.includes(this.filterDescription.value));
+    });
+    // for debugging
     console.log( JSON.stringify(this.taskList.toString()));
   }
 

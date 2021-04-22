@@ -50,7 +50,7 @@ pipeline {
         stage("Release staging environment") {
             steps {
 				sh "docker-compose pull"
-				sh "docker-compose up -d application mssql-db webstrom"
+				sh "docker-compose up -d application mssql-db webstrom elasticsearch kibana"
 				sh "sqlpackage /Action:Publish /TargetDatabaseName:TodoDb /SourceFile:db/ToDoIt-DB/bin/Debug/ToDoIt-DB.dacpac /TargetPassword:HelloW0rld /TargetUser:sa /TargetServerName:devops.setgo.dk,23000"
             }
         }
